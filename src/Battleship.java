@@ -7,6 +7,7 @@ public class Battleship {
 		
 		int[][] map = new int[10][10];
 		int[][] radar = new int[10][10];
+		String start = getInput("Where do you want to place your ");
 		String decision = getInput("What is your move?");
 		char[] alph = decision.toCharArray();
 		int a = alph[1] - '0';
@@ -14,6 +15,8 @@ public class Battleship {
 		System.out.println(a);
 		
 		System.out.println(radar[letterRead(alph)][a]);
+		
+		
 		
 	}
 	
