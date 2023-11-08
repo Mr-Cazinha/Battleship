@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Battleship {
 	
 		public static void main(String[] args) {	
-			String start = getInput("Where fo you want to place your ");
+			String start = getInput("Where do you want to place your ships");
 			
 			
 			
