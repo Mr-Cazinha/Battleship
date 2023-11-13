@@ -1,55 +1,63 @@
 import java.util.Scanner;
 
 public class Battleship {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		int[][] map = new int[10][10];
-		int[][] radar = new int[10][10];
-		String start = getInput("Where do you want to place your ");
-		String decision = getInput("What is your move?");
-		char[] alph = decision.toCharArray();
-		int a = alph[1] - '0';
-		System.out.print(letterRead(alph));
-		System.out.println(a);
-		
-		System.out.println(radar[letterRead(alph)][a]);
-		
-		
-		
-	}
 	
-	
-	
-	private static int letterRead(char[] alph) {
-		char[] cols = new char[] {'a','b','c','d','e','f','g','h','i','j'};
-		int read = -1;
-		for(int i = 0; i < cols.length; i++) {
-			if(charRead(alph) == cols[i]) {
-				read = i;
+		public static void main(String[] args) {	
+			
+			int[][] map1 = new int [10][10];
+			int[][] map2 = new int [10][10];
+			
+			askForPlacement("Player 1");
+			askForPlacement("Player 2");
+			
+		}
+		
+		private static void askForPlacement(String player) {
+			for(String ship : ships()) {
+				String input = getInput(player + ", where do you want to place " + ship);
+				if(!isInputInteger(input)) {
+					
+				}
+				
 			}
 		}
 		
-		return read;
-	}
-	
-	private static char charRead(char[] alph) {
-		return alph[0];
-	}
-	
-	private static String getInput(String text) {
-		Scanner input = new Scanner(System.in);
-		String choice = "";
-		try 
-		{
-			System.out.println(text);
-			choice = input.nextLine();
-		}catch(Exception e)
-		{
-			e.printStackTrace();
+		private static String[] ships() {
+			String[] ship = new String[] {"Carrier(5)", "Battleship(4)", "Cruiser(3)", "Submarine(3)", "Destroyer(2)"};
+			return ship;
 		}
-		return choice;
+		
+		
+		private static String getInput(String text) {
+			Scanner input;
+			String choice;
+			try 
+			{
+				input = new Scanner(System.in);
+				System.out.println(text);
+				choice = input.nextLine();
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+			return choice;
 	}
 
-}
+		private static boolean isInputInteger(String input) {
+			boolean isAnInteger = true;
+			for(int c = 0; c < input.length();c++) {
+				char letter = input.charAt(c);
+				//'-' is 45 '0 - 9' 48 - 57
+				if(c!=0 &&!(letter >= 48 && letter<= 57))
+				{
+					isAnInteger = false;
+				}else if(letter != 45 && !(letter >= 48 && letter <= 57))
+				{
+					isAnInteger = false;
+				}
+			}
+			return isAnInteger;
+		}
+}	
+
