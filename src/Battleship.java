@@ -8,6 +8,7 @@ public class Battleship {
 			int[][] map2 = new int [10][10];
 			
 			askForPlacement("Player 1");
+			System.out.println("☆ Now flip screen for player 2 ☆");
 			askForPlacement("Player 2");
 			
 		}
@@ -23,7 +24,7 @@ public class Battleship {
 		}
 		
 		private static String[] ships() {
-			String[] ship = new String[] {"Carrier(5)", "Battleship(4)", "Cruiser(3)", "Submarine(3)", "Destroyer(2)"};
+			String[] ship = new String[] {"Carrier(5)", "Battleship(4)", "Cruiser(3)", "Submarine(3)", "Destroyer(2)",};
 			return ship;
 		}
 		
