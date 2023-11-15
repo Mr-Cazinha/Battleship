@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.util.Scanner;
 
 public class Map {
@@ -99,3 +100,6 @@ public class Map {
 	}
 
 }
+=======
+
+>>>>>>> 1227268ba7bc4ff2ee6d550e72cd4401e97da7da
