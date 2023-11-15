@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Battleship {
@@ -15,17 +17,44 @@ public class Battleship {
 		
 		private static void askForPlacement(String player) {
 			for(String ship : ships()) {
-				String input = getInput(player + ", where do you want to place " + ship);
-				if(!isInputInteger(input)) {
-					
-				}
+				String letter = getShipLetter(player, ship);
+				int number = getShipNumber(player, ship);
 				
 			}
 		}
 		
+		private static String getShipLetter(String player, String ship) {
+			String input = getInput(player + ", on what letter do you want to place " + ship);
+			if(!letters().contains(input.toUpperCase())) {
+				System.out.println("Please enter a letter between A and J");
+				return getShipLetter(player, ship);
+			}
+			return input;
+		}
+		
+		private static int getShipNumber(String player, String ship) {
+			String input = getInput(player + ", on what number do you want to place " + ship);
+			if(!isInputInteger(input)) {
+				System.out.println("Please enter a number between 1 and 10.");
+				return getShipNumber(player, ship);
+			}
+			int number = Integer.parseInt(input);
+			if(number < 1 || number > 10 ) {
+				System.out.println("Please enter a number between 1 and 10.");
+				return getShipNumber(player, ship);
+			}
+			
+			return number;
+		}
+
 		private static String[] ships() {
+			
+			
 			String[] ship = new String[] {"Carrier(5)", "Battleship(4)", "Cruiser(3)", "Submarine(3)", "Destroyer(2)",};
-			return ship;
+			
+			return new String[] {"Carrier(5)", "Battleship(4)", "Cruiser(3)", "Submarine(3)", "Destroyer(2)"};
+			
+			
 		}
 		
 		
@@ -60,5 +89,22 @@ public class Battleship {
 			}
 			return isAnInteger;
 		}
+		
+		private static List<String> letters() {
+			List letters = new ArrayList<>();
+			letters.add("A");
+			letters.add("B");
+			letters.add("C");
+			letters.add("D");
+			letters.add("E");
+			letters.add("F");
+			letters.add("G");
+			letters.add("H");
+			letters.add("I");
+			letters.add("J");
+			
+			return letters;
+		}
+		
 }	
 
