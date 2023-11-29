@@ -14,6 +14,7 @@ public class Player {
 		s.resolve(false);
 		//adding to a collection
 		myShots.add(s);
+		
 		renderRadar();
 		displayBoard(radar,false);
 	}
@@ -26,7 +27,7 @@ public class Player {
 	private void initBoard(String[][] board) {
 		for(int y = 0; y < 10; y++) {
 			for(int x = 0; x < 10; x++) {
-				board[y][x] = " ";
+				board[y][x] = "  ";
 			}
 		}
 		
@@ -47,7 +48,7 @@ public class Player {
 			System.out.print((char)((short)letter+y));
 			
 			for(int x = 0; x < 10; x++) {
-				System.out.print(board[y][x]+" ");
+				System.out.print(board[y][x]);
 			}
 			System.out.print("\n");
 		}
