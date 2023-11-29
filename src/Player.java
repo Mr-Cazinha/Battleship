@@ -6,11 +6,15 @@ public class Player {
 	String[][] radar = new String [10][10];
 	//ClassName<dType> ourName = new ClassName<dType>();
 	ArrayList<Ship> deployedShips = new ArrayList<Ship>();
-	
+	ArrayList<Shot> myShots = new ArrayList<Shot>();
 	
 	public Player() {
 		init();
-		
+		Shot s = new Shot(3,0);
+		s.resolve(false);
+		//adding to a collection
+		myShots.add(s);
+		renderRadar();
 		displayBoard(radar,false);
 	}
 	
@@ -27,6 +31,14 @@ public class Player {
 		}
 		
 	}
+	
+	private void renderRadar() {
+		//For each loop
+		//for(dType yourName : collectionName){}
+		for(Shot s : myShots) {
+			s.display(radar);
+		}
+	}
 	private void displayBoard(String[][] board, boolean ocean) {
 		// display this board
 		char letter = 'A';
@@ -35,7 +47,7 @@ public class Player {
 			System.out.print((char)((short)letter+y));
 			
 			for(int x = 0; x < 10; x++) {
-				System.out.print(board[y][x]);
+				System.out.print(board[y][x]+" ");
 			}
 			System.out.print("\n");
 		}
