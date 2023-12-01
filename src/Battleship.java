@@ -6,48 +6,63 @@ public class Battleship {
 	
 		public static void main(String[] args) {	
 			
-			int[][] map1 = new int [10][10];
-			int[][] map2 = new int [10][10];
+			boolean[][] map1 = new boolean [10][10];
+			boolean[][] map2 = new boolean [10][10];
 			
 			askForPlacement("Player 1");
 			askForPlacement("Player 2");
 			
 		}
 		
-		private static void askForPlacement(String player) {
-			for(String ship : ships()) {
-				String letter = getShipLetter(player, ship);
-				int number = getShipNumber(player, ship);
-				
-			}
-		}
 		
-		private static String getShipLetter(String player, String ship) {
-			String input = getInput(player + ", on what letter do you want to place " + ship);
-			if(!letters().contains(input.toUpperCase())) {
-				System.out.println("Please enter a letter between A and J");
-				return getShipLetter(player, ship);
-			}
-			return input;
-		}
-		
-		private static int getShipNumber(String player, String ship) {
-			String input = getInput(player + ", on what number do you want to place " + ship);
-			if(!isInputInteger(input)) {
-				System.out.println("Please enter a number between 1 and 10.");
-				return getShipNumber(player, ship);
-			}
-			int number = Integer.parseInt(input);
-			if(number < 1 || number > 10 ) {
-				System.out.println("Please enter a number between 1 and 10.");
-				return getShipNumber(player, ship);
-			}
+		private static int letterRead(char letter) {
+			char[] cols = new char[] {'#','a','b','c','d','e','f','g','h','i','j'};
 			
-			return number;
+			int a = 0;
+			for(int i = 0; i < cols.length; i++) {
+				if(letter == cols[i]) {
+					a = i;
+				}
+			}
+			return a;
+		}
+		
+		private static void askForPlacement(String player) {
+			Ship[] shim = new Ship[5];
+			int i = 0;
+			for(Ship ship : ships()) {
+				String a = getInput(player + ", where do you want to place " + ship.name + "(letter|number)");
+				char letter = getShipLetter(a);
+				int number = getShipNumber(a);
+				shim[i] = new Ship(ship.dots, ship.name,number,letterRead(letter));
+				shim[i].canPlaceShip(direc(getInput("What direction do you want to place, Horizontal[0], Vertical[1]")));
+				i++;
+			}
+		}
+		
+		private static int direc(String result) {
+			return Integer.parseInt(result);
+		}
+		
+		
+		private static char[] location(String a) {
+			char[] n = a.toCharArray();
+			return n;
+		}
+		
+		private static char getShipLetter(String result) {
+			
+			char a = location(result)[0];	
+			return a;
+		}
+		
+		private static int getShipNumber(String result) {
+			int a = location(result)[1] - '0';	
+			return a;
 		}
 
-		private static String[] ships() {
-			return new String[] {"Carrier(5)", "Battleship(4)", "Cruiser(3)", "Submarine(3)", "Destroyer(2)"};
+		private static Ship[] ships() {
+			return new Ship[] {new Ship(5, "Carrier(5)"), new Ship(4, "Battleship(4)"), new Ship(3, "Cruiser(3)"), new Ship(3, "Submarine(3)"), new Ship(2, "Destroyer(2)")};
 		}
 		
 		
@@ -81,22 +96,6 @@ public class Battleship {
 				}
 			}
 			return isAnInteger;
-		}
-		
-		private static List<String> letters() {
-			List letters = new ArrayList<>();
-			letters.add("A");
-			letters.add("B");
-			letters.add("C");
-			letters.add("D");
-			letters.add("E");
-			letters.add("F");
-			letters.add("G");
-			letters.add("H");
-			letters.add("I");
-			letters.add("J");
-			
-			return letters;
 		}
 		
 }	
