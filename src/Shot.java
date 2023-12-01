@@ -31,4 +31,10 @@ public class Shot {
 		}		
 		return field;
 	}
+	public int getY() {
+		return y;
+	}
+	public int getX() {
+		return x;
+	}
 }

@@ -7,6 +7,7 @@ public class Player {
 	//ClassName<dType> ourName = new ClassName<dType>();
 	ArrayList<Ship> deployedShips = new ArrayList<Ship>();
 	ArrayList<Shot> myShots = new ArrayList<Shot>();
+	ArrayList<Shot> opShots = new ArrayList<Shot>();
 	
 	public Player() {
 		init();
@@ -15,11 +16,13 @@ public class Player {
 		//adding to a collection
 		myShots.add(s);
 		
-		renderRadar();
-		displayBoard(radar,false);
-	}
-	
-	
+		opShots.add(s);
+		Ship battle = new Ship(4,"BattleShip","B");
+		battle.placeShip(new Shot(4,3), false);
+		deployedShips.add(battle);
+		renderOcean();
+		displayBoard(ocean);
+	}	
 	private void init() {
 		initBoard(radar);
 		initBoard(ocean);
@@ -31,16 +34,23 @@ public class Player {
 			}
 		}
 		
-	}
-	
+	}	
 	private void renderRadar() {
 		//For each loop
 		//for(dType yourName : collectionName){}
 		for(Shot s : myShots) {
 			s.display(radar);
 		}
+	}	
+	private void renderOcean() {
+		for(Ship s : deployedShips) {
+			s.renderShip(ocean);
+		}
+		for(Shot s : opShots) {
+			s.display(ocean);
+		}
 	}
-	private void displayBoard(String[][] board, boolean ocean) {
+	private void displayBoard(String[][] board) {
 		// display this board
 		char letter = 'A';
 		System.out.println("  1 2 3 4 5 6 7 8 9 10");	
