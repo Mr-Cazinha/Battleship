@@ -2,8 +2,9 @@
 public class Ship {
 	int row,col;
 	boolean orientation; //true = vert
-	int size;
+	int size,hit=0;
 	String letter,name;
+	boolean sunk = false;
 	
 	public Ship(int s, String n, String l) {
 		size = s;
@@ -23,16 +24,25 @@ public class Ship {
 			//deal with orientation
 			if(orientation) {
 				if(loc.equals(new Shot(col,(row+c)))) {
+					hit++;
 					return true;
 				}
 			}else {
 				if(loc.equals(new Shot((col+c),row))) {
+					hit++;
 					return true;
 				}
 			}
 		}
 		return false;
 	}
+	public boolean isAlive() {
+		if(hit == size) {
+			return false;
+		}
+		return true;
+	}
+	
 	public String[][] renderShip(String[][] field){
 		for(int c = 0; c < size; c++) {
 			//deal with orientation
