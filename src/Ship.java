@@ -47,7 +47,7 @@ public class Ship {
 		for(int c = 0; c < size; c++) {
 			//deal with orientation
 			if(orientation) {
-				field[col+c][row] = letter;
+				field[col+c][row] = " " +letter;
 			}else {
 				field[col][row+c] = " "+letter;
 			}

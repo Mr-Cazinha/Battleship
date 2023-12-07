@@ -13,17 +13,22 @@ public class Player {
 	
 	public Player() {
 		init();
-		Shot s = new Shot(3,0);
-		s.resolve(false);
-		//adding to a collection
-		myShots.add(s);
-		
-		opShots.add(s);
+		//debug code here
+		Ship ac = new Ship(5,"Aircraft Carier","A");
 		Ship battle = new Ship(4,"BattleShip","B");
+		Ship cruiser = new Ship(3,"Cruiser","C");
+		Ship sub = new Ship(3,"Submarine","S");
+		Ship des = new Ship(2,"Destroyer","D");
+		ac.placeShip(new Shot(0,0), true);
 		battle.placeShip(new Shot(4,3), false);
+		cruiser.placeShip(new Shot(6,6), false);
+		sub.placeShip(new Shot(4,1), true);
+		des.placeShip(new Shot(7,2), false);
+		deployedShips.add(ac);
 		deployedShips.add(battle);
-		renderOcean();
-		displayBoard(ocean);
+		deployedShips.add(cruiser);
+		deployedShips.add(sub);
+		deployedShips.add(des);
 	}
 	
 	private Shot getLocation(String text) {
@@ -39,7 +44,7 @@ public class Player {
 		int row = (int)(letter - 'A');
 		int col=-1;
 		try {
-			col = Integer.parseInt(choice.substring(1));
+			col = Integer.parseInt(choice.substring(1))-1;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
