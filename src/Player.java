@@ -13,7 +13,9 @@ public class Player {
 	
 	public Player() {
 		init();
+		deployShips();
 		//debug code here
+		/*
 		Ship ac = new Ship(5,"Aircraft Carier","A");
 		Ship battle = new Ship(4,"BattleShip","B");
 		Ship cruiser = new Ship(3,"Cruiser","C");
@@ -29,8 +31,100 @@ public class Player {
 		deployedShips.add(cruiser);
 		deployedShips.add(sub);
 		deployedShips.add(des);
+		*/
+	}
+	private void deployShips() {
+		//creates our ships and places them in dry dock.
+		ArrayList<Ship> dryDock = new ArrayList<Ship>();
+		Ship ac = new Ship(5,"Aircraft Carier","A");
+		Ship battle = new Ship(4,"BattleShip","B");
+		Ship cruiser = new Ship(3,"Cruiser","C");
+		Ship sub = new Ship(3,"Submarine","S");
+		Ship des = new Ship(2,"Destroyer","D");
+		dryDock.add(ac);
+		dryDock.add(battle);
+		dryDock.add(cruiser);
+		dryDock.add(sub);
+		dryDock.add(des);
+		//loop through dry dock and place each ship
+		for(Ship s : dryDock) {
+			renderOcean();
+			displayBoard(ocean);
+			boolean validate = true;
+			while(validate) {
+				//get location
+				Shot loc = getLocation("Enter the placement for "+ s.name);
+				//get orientation
+				boolean ori = getOrientation();
+				//check for ship in bounds
+				validate = checksMapBounds(s,ori,loc);
+				//check for collisions 
+				if(validate) {
+					validate = checkCollitions(s,ori,loc);
+					if(validate) {
+						System.out.println(s.name+" has been placed.");
+						s.placeShip(loc, ori);
+						deployedShips.add(s);
+						validate = false;
+					}else {
+						System.out.println("This ship will collide with another already place ship, try again.");
+						validate = true;
+					}
+				}else {
+					System.out.println("The ship will not fit in this location, try again.");
+					validate = true;
+				}
+				
+			}
+		}
+		//We are done with setup. Change state to play
+		for(Ship s : deployedShips) {
+			s.setup = false;
+		}
+		renderOcean();
+		displayBoard(ocean);
 	}
 	
+	private boolean checkCollitions(Ship s,boolean ori,Shot loc) {
+		//if deployed ships is empty return true
+		if(deployedShips.isEmpty()) {
+			return true;
+		}else {
+			for(Ship a : deployedShips) {
+				if(ori) {//vertical
+					for(int b = loc.getY();b <loc.getY()+s.size; b++) {
+						if(a.checkHit(new Shot(loc.getX(),b))) {
+							return false;
+						}
+					}
+				}else {
+					for(int b = loc.getX();b <loc.getX()+s.size; b++) {
+						if(a.checkHit(new Shot(b,loc.getY()))) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	private boolean checksMapBounds(Ship s,boolean ori,Shot loc) {
+		if(ori) {
+			//vertical
+			int endPoint = loc.getY()+s.size - 1;
+			return endPoint < 10;
+		}else {
+			//horizontal
+			int endPoint = loc.getX() +s.size -1;
+			return endPoint < 10;
+		}
+	}
+	private boolean getOrientation() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("[0] Vertical \n[1] Horizontal");
+		int response = scan.nextInt();
+		return response % 2 == 0;
+	}
 	private Shot getLocation(String text) {
 		String choice = null;
 		Scanner input = new Scanner(System.in);

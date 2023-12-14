@@ -5,6 +5,7 @@ public class Ship {
 	int size,hit=0;
 	String letter,name;
 	boolean sunk = false;
+	public boolean setup = true;
 	
 	public Ship(int s, String n, String l) {
 		size = s;
@@ -18,18 +19,21 @@ public class Ship {
 		col = loc.getX();
 	}
 	public boolean checkHit(Shot loc) {
-		//checking each spot to see if we hit.
-		
+		//checking each spot to see if we hit.		
 		for(int c = 0; c < size; c++) {
 			//deal with orientation
 			if(orientation) {
 				if(loc.equals(new Shot(col,(row+c)))) {
-					hit++;
+					if(!setup) {
+						hit++;
+					}
 					return true;
 				}
 			}else {
 				if(loc.equals(new Shot((col+c),row))) {
-					hit++;
+					if(!setup) {
+						hit++;
+					}
 					return true;
 				}
 			}
@@ -47,9 +51,9 @@ public class Ship {
 		for(int c = 0; c < size; c++) {
 			//deal with orientation
 			if(orientation) {
-				field[col+c][row] = " " +letter;
+				field[row+c][col] = " " +letter;
 			}else {
-				field[col][row+c] = " "+letter;
+				field[row][col+c] = " "+letter;
 			}
 		}
 		
