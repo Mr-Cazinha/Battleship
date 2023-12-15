@@ -5,8 +5,8 @@ public class Shot {
 	private boolean hit = false;
 	
 	public Shot(int x, int y) {
-		
-		
+		this.x = x;
+		this.y = y;
 	}
 	//resolve hit or miss
 	public void resolve(Boolean shot) {
@@ -25,9 +25,9 @@ public class Shot {
 	//display itself
 	public String[][] display(String[][] field){
 		if (hit) {
-			field[y][x] = "H";
-		}else {
-			field[y][x] = "M";
+			field[y][x] = " H";
+		} else {
+			field[y][x] = " M";
 		}
 		return field;
 	}

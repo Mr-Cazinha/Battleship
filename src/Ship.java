@@ -4,9 +4,11 @@ public class Ship {
 	String name;
 	int col;
 	int row;
+	int hit = 0;
 	boolean orientation;
 	String letter;
 	boolean sunk = false;
+	public boolean setup = true;
 	
 	
 	public Ship(int size, String name, String letter) {
@@ -23,32 +25,34 @@ public class Ship {
 	
 	// Display "Look"
 	
-/*	
+
 	public void placeShip(Shot loc, boolean or) {
 		orientation = or;
 		row = loc.getY();
-		col = loc.getX()
+		col = loc.getX();
 	}
 	
 	
 	public boolean checkHit(Shot loc) {
 		
-		for(int c = 0; c < size; c++) {
-			// deal with orientation
-			if(orientation) {
-				if(loc.equals(new Shot((col+c),row))) {
-					
-				}	
-			}
-			else {
-				if(loc.equals(new Shot(col,(row+c)))) {
-					
-				}
-			}
-		}
+		//checking each spot to see if we hit.
 		
-		return false;
-	}
+				for(int c = 0; c < size; c++) {
+					//deal with orientation
+					if(orientation) {
+						if(loc.equals(new Shot(col,(row+c)))) {
+							hit++;
+							return true;
+						}
+					}else {
+						if(loc.equals(new Shot((col+c),row))) {
+							hit++;
+							return true;
+						}
+					}
+				}
+				return false;
+			}
 	
 	public boolean isAlive() {
 		if(hit == size) {
@@ -71,6 +75,4 @@ public class Ship {
 		return field;
 	}
 	
-	
-*/
 }
