@@ -36,11 +36,11 @@ public class Player {
 	private void deployShips() {
 		//creates our ships and places them in dry dock.
 		ArrayList<Ship> dryDock = new ArrayList<Ship>();
-		Ship ac = new Ship(5,"Aircraft Carrier","A");
-		Ship battle = new Ship(4,"BattleShip","B");
-		Ship cruiser = new Ship(3,"Cruiser","C");
-		Ship sub = new Ship(3,"Submarine","S");
-		Ship des = new Ship(2,"Destroyer","D");
+		Ship ac = new Ship(5,"Aircraft Carrier"," A");
+		Ship battle = new Ship(4,"BattleShip"," B");
+		Ship cruiser = new Ship(3,"Cruiser"," C");
+		Ship sub = new Ship(3,"Submarine"," S");
+		Ship des = new Ship(2,"Destroyer"," D");
 		dryDock.add(ac);
 		dryDock.add(battle);
 		dryDock.add(cruiser);
@@ -229,7 +229,7 @@ public class Player {
 	private void displayBoard(String[][] board) {
 		// display this board
 		char letter = 'A';
-		System.out.println(" 1 2 3 4 5 6 7 8 9 10");	
+		System.out.println("  1 2 3 4 5 6 7 8 9 10");	
 		for(int y = 0; y < 10; y++) {
 			System.out.print((char)((short)letter+y));
 			
